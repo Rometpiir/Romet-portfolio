@@ -159,7 +159,6 @@ function scrollUpfunc() {
 }
 window.addEventListener("scroll", scrollUpfunc);
 
-
 // DARK/LIGHT THEME
 const themeButton = document.getElementById("theme-button");
 const darkTheme = "dark-theme";
@@ -204,6 +203,8 @@ var typed = new Typed(".type", {
   backSpeed: 60,
   loop: true,
 });
+
+
 
 
 
