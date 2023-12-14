@@ -159,10 +159,21 @@ function scrollUpfunc() {
 }
 window.addEventListener("scroll", scrollUpfunc);
 
-// DARK/LIGHT THEME
-const themeButton = document.getElementById("theme-button");
-const darkTheme = "dark-theme";
-const iconTheme = "uil-sun";
+
+// dark theme
+const setDarkTheme = () => {
+  document.body.classList.add(darkTheme);
+  themeButton.classList.add(iconTheme);
+  localStorage.setItem("selected-theme", "dark");
+  localStorage.setItem("selected-icon", "uil-sun");
+};
+//light them
+const setLightTheme = () => {
+  document.body.classList.remove(darkTheme);
+  themeButton.classList.remove(iconTheme);
+  localStorage.setItem("selected-theme", "light");
+  localStorage.setItem("selected-icon", "uil-moon");
+};
 
 // Previously selected topic (if user selected)
 const selectedTheme = localStorage.getItem("selected-theme");
@@ -175,17 +186,17 @@ if (!localStorage.getItem("selected-theme")) {
   const selectedTheme = localStorage.getItem("selected-theme");
   const selectedIcon = localStorage.getItem("selected-icon");
 
-  document.body.classList[selectedTheme === "dark" ? "add" : "remove"](darkTheme);
-  themeButton.classList[selectedIcon === "uil-sun" ? "add" : "remove"](iconTheme);
+  if (selectedTheme === "dark") {
+    setDarkTheme();
+  } else {
+    setLightTheme();
+  }
 }
-
-// Activate/Deactivate the theme manually with the button
 themeButton.addEventListener("click", () => {
-  // Add or remove the dark icon/theme
   document.body.classList.toggle(darkTheme);
   themeButton.classList.toggle(iconTheme);
-  // We save the theme and the current icon that the user chose
-  localStorage.setItem("selected-theme", getCurrentTheme());
+  const currentTheme = document.body.classList.contains(darkTheme) ? "dark" : "light";
+  localStorage.setItem("selected-theme", currentTheme);
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
 
