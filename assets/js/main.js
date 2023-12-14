@@ -160,43 +160,37 @@ function scrollUpfunc() {
 window.addEventListener("scroll", scrollUpfunc);
 
 
-// dark theme
-const setDarkTheme = () => {
-  document.body.classList.add(darkTheme);
-  themeButton.classList.add(iconTheme);
-  localStorage.setItem("selected-theme", "dark");
-  localStorage.setItem("selected-icon", "uil-sun");
-};
-//light them
-const setLightTheme = () => {
-  document.body.classList.remove(darkTheme);
-  themeButton.classList.remove(iconTheme);
-  localStorage.setItem("selected-theme", "light");
-  localStorage.setItem("selected-icon", "uil-moon");
-};
+// DARK/LIGHT THEME
+const themeButton = document.getElementById("theme-button");
+const darkTheme = "dark-theme";
+const iconTheme = "uil-sun";
 
 // Previously selected topic (if user selected)
 const selectedTheme = localStorage.getItem("selected-theme");
 const selectedIcon = localStorage.getItem("selected-icon");
 
 // obtain the current theme
-if (!localStorage.getItem("selected-theme")) {
-  setDarkTheme();
-} else {
-  const selectedTheme = localStorage.getItem("selected-theme");
-  const selectedIcon = localStorage.getItem("selected-icon");
+const getCurrentTheme = () =>
+  document.body.classList.contains(darkTheme) ? "dark" : "light";
+const getCurrentIcon = () =>
+  themeButton.classList.contains(iconTheme) ? "uil-moon" : "uil-sun";
 
-  if (selectedTheme === "dark") {
-    setDarkTheme();
-  } else {
-    setLightTheme();
-  }
+if (selectedTheme) {
+  document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
+    darkTheme
+  );
+  themeButton.classList[selectedIcon === "uil-moon" ? "add" : "remove"](
+    iconTheme
+  );
 }
+
+// Activate/Deactivate the theme manually with the button
 themeButton.addEventListener("click", () => {
+  // Add or remove the dark icon/theme
   document.body.classList.toggle(darkTheme);
   themeButton.classList.toggle(iconTheme);
-  const currentTheme = document.body.classList.contains(darkTheme) ? "dark" : "light";
-  localStorage.setItem("selected-theme", currentTheme);
+  // We save the theme and the current icon that the user chose
+  localStorage.setItem("selected-theme", getCurrentTheme());
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
 
@@ -210,5 +204,7 @@ var typed = new Typed(".type", {
   backSpeed: 60,
   loop: true,
 });
+
+
 
 
