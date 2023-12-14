@@ -200,3 +200,4 @@ var typed = new Typed(".type", {
   loop: true,
 });
 
+
